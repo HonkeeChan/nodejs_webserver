@@ -5,16 +5,108 @@
     <title>Title</title>
 </head>
 <body>
-    <button onclick="clickBtn()">点我</button>
+<h4>post content type test</h4>
+    <button onclick="clickBtn()">点我 postArr</button>
+    <button onclick="postJSONStringify()">点我 post json stringify Arr</button>
+
+<h4>post multiselect</h4>
+post收到会是一个数组。
+<form id="multiselectForm">
+    <input name="input1" type="text">
+    <input name="checkbox" type="checkbox" value="checkbox1">
+    <input name="checkbox" type="checkbox" value="checkbox2">
+    <input name="checkbox" type="checkbox" value="checkbox3">
+    <input name="checkbox" type="checkbox" value="checkbox4">
+    <button  id="multiselectFormSubmit">提交</button>
+</form>
 </body>
 <script src="js/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
         
     });
+    function postJSONStringify() {
+        $.ajax({
+            url: '/post_json',
+            type:'POST',
+            data:{
+                str: 'aaa',
+                arr: JSON.stringify(['a', 'b'])
+            },
+            contentType: "application/json; charset=utf8",
+            dataType: 'json',
+            success: function (e) {
+                console.log(e);
+            }
+        });
+        $.ajax({
+            url: '/urlencoded',
+            type:'POST',
+            data:{
+                str: 'aaa',
+                arr: JSON.stringify(['a', 'b'])
+            },
+            contentType: "application/x-www-urlencoded; charset=utf8",
+            dataType: 'json',
+            success: function (e) {
+                console.log(e);
+            }
+        });
+        $.ajax({
+            url: '/formurlencoded',
+            type:'POST',
+            data:{
+                str: 'aaa',
+                arr: JSON.stringify(['a', 'b'])
+            },
+            contentType: "application/x-www-form-urlencoded; charset=utf8",
+            dataType: 'json',
+            success: function (e) {
+                console.log(e);
+            }
+        });
+        $.ajax({
+            url: '/multipart',
+            type:'POST',
+            data:{
+                str: 'aaa',
+                arr: JSON.stringify(['a', 'b'])
+            },
+            contentType: "multipart/form-data; charset=utf8",
+            dataType: 'json',
+            success: function (e) {
+                console.log(e);
+            }
+        });
+        $.ajax({
+            url: '/html',
+            type:'POST',
+            data:{
+                str: 'aaa',
+                arr: JSON.stringify(['a', 'b'])
+            },
+            contentType: "text/html; charset=utf8",
+            dataType: 'json',
+            success: function (e) {
+                console.log(e);
+            }
+        });
+        $.ajax({
+            url: '/default',
+            type:'POST',
+            data:{
+                str: 'aaa',
+                arr: JSON.stringify(['a', 'b'])
+            },
+            dataType: 'json',
+            success: function (e) {
+                console.log(e);
+            }
+        });
+    }
     function clickBtn() {
         $.ajax({
-            url: '/json',
+            url: '/post_json',
             type:'POST',
             data:{
                 str: 'aaa',
@@ -44,7 +136,7 @@
             type:'POST',
             data:{
                 str: 'aaa',
-                arr: ['a','b']
+                arr: ['a', 'b']
             },
             contentType: "application/x-www-form-urlencoded; charset=utf8",
             dataType: 'json',
@@ -91,5 +183,17 @@
             }
         });
     }
+    
+    $("#multiselectFormSubmit").click(function () {
+        $.ajax({
+            url: '/multiNameForm',
+            type:'POST',
+            data: $("#multiselectForm").serialize(),
+            dataType: 'json',
+            success: function (e) {
+                console.log(e);
+            }
+        });
+    })
 </script>
 </html>
