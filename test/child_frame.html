@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>child </title>
+</head>
+<body>
+    <p>child frame</p>
+<button onclick="getFatherVar()">get var from parent</button>
+</body>
+<script src="js/jquery.min.js"></script>
+<script>
+    function getFatherVar() {
+        console.log(parent.document.hello);
+        console.log(parent.hello);
+        console.log(parent.window.hello);
+    }
+
+</script>
+</html>
