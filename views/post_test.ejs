@@ -23,7 +23,17 @@ post收到会是一个数组。
 <script src="js/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
-        
+        $("#multiselectFormSubmit").click(function () {
+            $.ajax({
+                url: '/multiNameForm',
+                type:'POST',
+                data: $("#multiselectForm").serialize(),
+                dataType: 'json',
+                success: function (e) {
+                    console.log(e);
+                }
+            });
+        })
     });
     function postJSONStringify() {
         $.ajax({
@@ -184,16 +194,6 @@ post收到会是一个数组。
         });
     }
     
-    $("#multiselectFormSubmit").click(function () {
-        $.ajax({
-            url: '/multiNameForm',
-            type:'POST',
-            data: $("#multiselectForm").serialize(),
-            dataType: 'json',
-            success: function (e) {
-                console.log(e);
-            }
-        });
-    })
+
 </script>
 </html>
