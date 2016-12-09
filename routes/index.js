@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+formidable = require('formidable');
+fs = require('fs');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -64,6 +66,40 @@ router.post('/multiNameForm',function (req, res) {
   res.json({});
 });
 
+router.post("/cordovaPhoto", function (req, res) {
+  console.log("cordova photo, ",req.body);
+//  res.header("Access-Control-Allow-Origin", "*");
+  res.json({});
+});
+
+router.post("/fileUpload", function (req, res) {
+  var UPLOAD_FOLDER = 'upload';
+  console.log("fileUpload body, ",req.body);
+  console.log("fileUpload params, ",req.params);
+  var form = new formidable.IncomingForm();   //创建上传表单
+  form.encoding = 'utf-8';		//设置编辑
+  form.uploadDir = 'public/' + UPLOAD_FOLDER;	 //设置上传目录
+  form.keepExtensions = true;	 //保留后缀
+  form.maxFieldsSize = 2 * 1024 * 1024;   //文件大小
+
+  form.parse(req, function(err, fields, files) {
+
+    if (err) {
+      res.locals.error = err;
+      res.json({code: -1, err: JSON.stringify(err)});
+      return;
+    }
+
+    var avatarName = Math.random() + '.' + files.file.name;
+    var newPath = form.uploadDir + avatarName;
+
+    console.log(newPath);
+    fs.renameSync(files.file.path, newPath);  //重命名
+  });
+
+  res.locals.success = '上传成功';
+  res.json({code: 0});
+});
 
 
 module.exports = router;

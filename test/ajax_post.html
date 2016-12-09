@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax post</title>
+</head>
+<body>
+<button id="post1">post normal</button>
+<button id="post2">post CAPTITAL</button>
+
+</body>
+<script src="js/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#post1").click(function () {
+            $.ajax({
+                type: 'POST',
+                url: "HTTP://192.168.1.44:3000/CordovaPhoto",
+                data: {},
+                success: function () {
+                    console.log("success");
+                },
+                dataType: "JSON"
+            });
+        });
+        $("#post2").click(function () {
+            $.ajax({
+                type: 'POST',
+                url: "http://127.0.0.1:3000/cordovaPhoto",
+                data: {},
+                success: function () {
+                    console.log("success");
+                },
+                dataType: "JSON"
+            });
+        });
+    })
+</script>
+</html>
