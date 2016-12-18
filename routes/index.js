@@ -3,9 +3,14 @@ var router = express.Router();
 formidable = require('formidable');
 fs = require('fs');
 
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
+});
+
+router.get('/websocket_test', function (req, res) {
+  res.render("socketio_test");
 });
 
 
