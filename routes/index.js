@@ -5,9 +5,14 @@ fs = require('fs');
 var logger = require("../lib/log").logger;
 var timeTools = require("../lib/timetools");
 
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
+});
+
+router.get('/websocket_test', function (req, res) {
+  res.render("socketio_test");
 });
 
 
