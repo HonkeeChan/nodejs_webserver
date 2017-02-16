@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 formidable = require('formidable');
 fs = require('fs');
+var logger = require("../lib/log").logger;
+var timeTools = require("../lib/timetools");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -101,5 +103,17 @@ router.post("/fileUpload", function (req, res) {
   res.json({code: 0});
 });
 
+router.get('/write_data', function (req, res) {
+  var nowDateTime = timeTools.nowDateTime();
+  logger.info("post write data, " + nowDateTime);
+  res.render("post_test");
+});
+router.post('/write_data', function (req, res) {
+  var nowDateTime = timeTools.nowDateTime();
+  logger.info("post write data, " + nowDateTime);
+  res.json({
+    time: nowDateTime
+  });
+});
 
 module.exports = router;
