@@ -110,7 +110,7 @@ router.post("/fileUpload", function (req, res) {
 
 router.get('/write_data', function (req, res) {
   var nowDateTime = timeTools.nowDateTime();
-  logger.info("post write data, " + nowDateTime);
+  logger.info("get write data, " + nowDateTime);
   res.render("post_test");
 });
 router.post('/write_data', function (req, res) {
