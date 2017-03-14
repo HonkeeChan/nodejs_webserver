@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
 formidable = require('formidable');
-fs = require('fs');
+var fs = require('fs');
 var logger = require("../lib/log").logger;
 var timeTools = require("../lib/timetools");
-
+var multiparty = require('multiparty');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -80,6 +80,9 @@ router.post("/cordovaPhoto", function (req, res) {
 });
 
 router.post("/fileUpload", function (req, res) {
+  if(!fs.existsSync("public/upload")){
+    fs.mkdirSync("public/upload");
+  }
   var UPLOAD_FOLDER = 'upload';
   console.log("fileUpload body, ",req.body);
   console.log("fileUpload params, ",req.params);
@@ -97,15 +100,17 @@ router.post("/fileUpload", function (req, res) {
       return;
     }
 
-    var avatarName = Math.random() + '.' + files.file.name;
-    var newPath = form.uploadDir + avatarName;
+    //res.locals.success = '上传成功';
+    console.log("上传成功");
+    res.json({code: 0});
+    //var avatarName = Math.random() + '.' + files.file.name;
+    //var newPath = form.uploadDir + avatarName;
 
-    console.log(newPath);
-    fs.renameSync(files.file.path, newPath);  //重命名
+    //console.log(newPath);
+    //fs.renameSync(files.file.path, newPath);  //重命名
   });
 
-  res.locals.success = '上传成功';
-  res.json({code: 0});
+
 });
 
 router.get('/write_data', function (req, res) {
@@ -120,5 +125,11 @@ router.post('/write_data', function (req, res) {
     time: nowDateTime
   });
 });
+
+router.get('/upload_file', function (req, res) {
+  logger.info("get upload file, " );
+  res.render("upload_file");
+});
+
 
 module.exports = router;

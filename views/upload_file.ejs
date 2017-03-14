@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title lang="en">upload</title>
+
+</head>
+<body>
+<form method="post" id="uploadForm" action="/fileUpload" enctype="multipart/form-data">
+    <label for="upload">File (Binary):</label>
+    <input type="file" name="idCardFront" class="fileupload" /><br/>
+    <input type="button" class="submit" value="Submit" onclick="sendFormFromHTML(this.form);"/>
+</form>
+</body>
+</html>
+<script type="text/JavaScript">
+
+    function sendFormFromHTML(form) {
+        //form = $(".uploadForm").form;
+        var formData = new FormData(form);
+        formData.append('name', '123456'); // alternative to hidden fields
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', form.action, true);
+        xhr.onload = function(e) { alert(this.responseText) };
+        xhr.send(formData);
+        return false;
+    }
+</script>
